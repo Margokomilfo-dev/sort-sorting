@@ -141,6 +141,37 @@ const getSortedByItems_ = <T>(items: T[], sortBy: SortedBy<T>[])=> {
 //     ]
 
 
+//best-best practice
+const getSortedByItems__ = <T>(items: T[], ...sortBy: SortedBy<T>[])=> {
+    return [...items].sort((i1, i2)=> {
+        for(let sortConfig of sortBy){
+            if(i1[sortConfig.fieldName] < i2[sortConfig.fieldName]){
+                return sortConfig.direction === 'asc' ? -1 : 1
+            }
+            if(i1[sortConfig.fieldName] > i2[sortConfig.fieldName]){
+                return sortConfig.direction === 'asc' ? 1 : -1
+            }
+        }
+
+        return 0
+    })
+}
+//console.log(getSortedByItems__(users, {fieldName: 'name', direction: "asc"}, {fieldName: 'age', direction: "desc"})) //сколько угодно параметров
+//сортировка по Имени + возраст (the same)
+//     [
+//     { id: 'tqt1-jsweld1-43nl12', name: 'Elena', age: 55 },
+//         { id: 'trt1-jqldd1-4345lnl', name: 'Leo', age: 9 },
+//         { id: 'trt1-jaweld1-43nl12', name: 'Maiotta', age: 12 },
+//         { id: 'trt1-jsld1-43nldfsf', name: 'Margo', age: 34 },
+//         { id: 'trt1-jsddfld1-433nl', name: 'Mia', age: 3 },
+//         { id: 'tt1-jaweld1-43nl12s', name: 'Sandra', age: 30 },
+//         { id: 'tcdt1-jald1-43nl12s', name: 'Sandra', age: 27 },
+//         { id: 'tcdrt1-jasld1-4l12s', name: 'Sandra', age: 24 },
+//         { id: 'trt1-jsdfld1-43ndfl', name: 'William', age: 37 }
+//     ]
+
+
+
 
 
 
